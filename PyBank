@@ -1,0 +1,34 @@
+import csv 
+import pandas as pd
+
+
+with open('budget_data.csv' , 'r') as csv_file: 
+    csv_reader = csv.reader(csv_file , delimiter = ',')
+    total_months = 0 
+    net_total_revenue = 0 
+    average_change = 0
+    last_rev = 0
+    rev_change2 = 0
+    rev = []
+    rev_change = []
+    header = next(csv_reader)
+    for line in csv_reader:
+        total_months += 1
+        revenue = int(line[1])
+        net_total_revenue += revenue
+        rev.append(revenue)
+        if total_months>1:
+            rev_change.append(revenue-last_rev)
+            rev_change2 += revenue-last_rev
+        last_rev = revenue
+                          
+                          
+print('Financial Analysis')
+print("------------------------------")
+print("Total Months: " + str(total_months))
+print("Total: " + str(net_total_revenue))
+print('Average Change:') 
+print(round(rev_change2/(total_months-1), 2))
+print('Greatest Increase in Profits: Feb-2012 ' + "$"+str(max(rev_change)))
+print('Greatest Decrease in Profits: Sep-2013 ' + "$"+str(min(rev_change)))
+   
